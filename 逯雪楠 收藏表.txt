@@ -1,0 +1,78 @@
+Microsoft Windows [版本 10.0.17134.345]
+(c) 2018 Microsoft Corporation。保留所有权利。
+
+C:\WINDOWS\system32>MySQL -u root -p
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 41
+Server version: 8.0.12 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database shiwu charset = utf8;
+Query OK, 1 row affected, 1 warning (0.11 sec)
+
+mysql> use shiwu;
+Database changed
+mysql> create table chihuocollection(id varchar(10) primary key unique,name varchar(20),price int(10),type varchar(20),cancelcollection  bit default 1);
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> desc chihuocollection;
++------------------+-------------+------+-----+---------+-------+
+| Field            | Type        | Null | Key | Default | Extra |
++------------------+-------------+------+-----+---------+-------+
+| id               | varchar(10) | NO   | PRI | NULL    |       |
+| name             | varchar(20) | YES  |     | NULL    |       |
+| price            | int(10)     | YES  |     | NULL    |       |
+| type             | varchar(20) | YES  |     | NULL    |       |
+| cancelcollection | bit(1)      | YES  |     | b'1'    |       |
++------------------+-------------+------+-----+---------+-------+
+5 rows in set (0.03 sec)
+
+mysql> insert into chihuocollection(id,name,price,type) values(
+    -> "luxuenan","apple",5,"fruit"),("zhenbo","chicken",30,"meat");
+Query OK, 2 rows affected (0.10 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from chihuocollection;
++----------+---------+-------+-------+------------------+
+| id       | name    | price | type  | cancelcollection |
++----------+---------+-------+-------+------------------+
+| luxuenan | apple   |     5 | fruit |                 |
+| zhenbo   | chicken |    30 | meat  |                 |
++----------+---------+-------+-------+------------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into chihuocollection(id,name,price,type) values(
+    -> "moumou","carrot",10,"vegetables");
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from chihuocollection;
++----------+---------+-------+------------+------------------+
+| id       | name    | price | type       | cancelcollection |
++----------+---------+-------+------------+------------------+
+| luxuenan | apple   |     5 | fruit      |                 |
+| moumou   | carrot  |    10 | vegetables |                 |
+| zhenbo   | chicken |    30 | meat       |                 |
++----------+---------+-------+------------+------------------+
+3 rows in set (0.00 sec)
+
+mysql> update chihuocollection set cancelcollection=0 where name='apple';
+Query OK, 1 row affected (0.13 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from chihuocollection;
++----------+---------+-------+------------+------------------+
+| id       | name    | price | type       | cancelcollection |
++----------+---------+-------+------------+------------------+
+| luxuenan | apple   |     5 | fruit      |                  |
+| moumou   | carrot  |    10 | vegetables |                 |
+| zhenbo   | chicken |    30 | meat       |                 |
++----------+---------+-------+------------+------------------+
+3 rows in set (0.00 sec)
