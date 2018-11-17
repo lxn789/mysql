@@ -1,0 +1,59 @@
+mysql> create table moumou(userID int auto_increment primary key);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> alter table moumou add logindate  datetime;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table moumou add method  set('app','pc','ipad');
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table moumou add uername varchar(10);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select case
+    -> when abs(datediff(logindate,now()))>30 then "你去死吧"
+    -> when abs(datediff(logindate,now()))>9  then "你特么的回不回来"
+    -> when abs(datediff(logindate,now()))>7  then "快回来小天才"
+    -> end from moumou;
+Empty set (0.01 sec)
+
+mysql> desc moumou;
++-----------+------------------------+------+-----+---------+----------------+
+| Field     | Type                   | Null | Key | Default | Extra          |
++-----------+------------------------+------+-----+---------+----------------+
+| userID    | int(11)                | NO   | PRI | NULL    | auto_increment |
+| logindate | datetime               | YES  |     | NULL    |                |
+| method    | set('app','pc','ipad') | YES  |     | NULL    |                |
+| uername   | varchar(10)            | YES  |     | NULL    |                |
++-----------+------------------------+------+-----+---------+----------------+
+4 rows in set (0.02 sec)
+
+mysql> insert into moumou(userID,logindate,method,uername) values('1',now(),'pc','hai');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from moumou;
++--------+---------------------+--------+---------+
+| userID | logindate           | method | uername |
++--------+---------------------+--------+---------+
+|      1 | 2018-11-16 18:10:32 | pc     | hai     |
++--------+---------------------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select case
+    -> when abs(datediff(logindate,now()))>30 then "你去死吧"
+    -> when abs(datediff(logindate,now()))>9  then "你特么的回不回来"
+    -> when abs(datediff(logindate,now()))>7  then "快回来小天才"
+    -> end from moumou;
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| case
+when abs(datediff(logindate,now()))>30 then "你去死吧"
+when abs(datediff(logindate,now()))>9  then "你特么的回不回来"
+when abs(datediff(logindate,now()))>7  then "快回来小天才"
+end |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| NULL                                                                                                                                                                                      |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
